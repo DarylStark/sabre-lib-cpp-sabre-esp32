@@ -1,8 +1,8 @@
 {
-    "name": "Sabre Doorbell",
+    "name": "Sabre ESP32",
     "image": "dast1986/slough-dev-dc-esp32:latest",
     "remoteEnv": {
-        "PROMPTNAME": "SABRE-DB",
+        "PROMPTNAME": "SABRE-ESP32",
         "LC_ALL": "C.UTF-8"
     },
     "mounts": [
