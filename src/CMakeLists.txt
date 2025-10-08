@@ -1,7 +1,6 @@
 file(GLOB SOURCES sabre_esp32/**/*.cpp sabre_esp32/*.cpp)
 add_library(sabre_esp32 SHARED ${SOURCES})
 
-set(BUILD_TESTS OFF CACHE BOOL "Disable tests" FORCE)
 include(FetchContent)
 FetchContent_Declare(
     sabre
