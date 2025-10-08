@@ -8,5 +8,6 @@ TEST(Test, Sum)
 
 TEST(Test, SumALowerThen1)
 {
-    ASSERT_EQ(sum(0, 20), 0);
+    ASSERT_THROW(sum(0, 20), sabre::SabreException);
 }
+
