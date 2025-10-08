@@ -22,6 +22,7 @@ gcovr \
     --exclude '.*tests/.*' \
     --exclude '.*\.hpp$' \
     --exclude '.*googletest.*' \
+    --exclude '.*sabre\-src.*' \
     --html="${COVERAGE_HTML_INDEX}" --html-details -o "$COVERAGE_HTML_DETAILS" \
     --xml -o "$COVERAGE_XML" \
     --print-summary
