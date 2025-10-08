@@ -1,5 +1,5 @@
-#include <iostream>
 #include "test.hpp"
+#include <iostream>
 
 int sum(int a, int b)
 {
