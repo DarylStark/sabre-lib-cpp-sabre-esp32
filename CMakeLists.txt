@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.14)
-project(sabre_esp32 LANGUAGES CXX)
+project(sabre_esp32 LANGUAGES CXX C)
 
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
@@ -15,3 +15,4 @@ endif()
 
 # Application source
 add_subdirectory(src)
+add_subdirectory(mock_esp_idf)

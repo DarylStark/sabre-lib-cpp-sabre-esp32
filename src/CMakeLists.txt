@@ -9,7 +9,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(sabre)
 
-target_link_libraries(sabre_esp32 PUBLIC sabre)
+target_link_libraries(sabre_esp32 PUBLIC sabre mock_esp_idf)
 
 if(BUILD_TESTS STREQUAL "ON")
     target_compile_options(sabre_esp32 PRIVATE --coverage)
@@ -20,5 +20,7 @@ target_include_directories(
     sabre_esp32
     PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/
+    ${CMAKE_CURRENT_SOURCE_DIR}/../mock_esp_idf/
     ${sabre_SOURCE_DIR}/src
 )
+
