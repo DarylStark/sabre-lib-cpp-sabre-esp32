@@ -1,6 +1,7 @@
 #ifndef SABRE_ESP32_EXCEPTIONS_H
 #define SABRE_ESP32_EXCEPTIONS_H
 
+#include <esp_err.h>
 #include <sabre/exceptions/exceptions.hpp>
 
 namespace sabre::esp32
