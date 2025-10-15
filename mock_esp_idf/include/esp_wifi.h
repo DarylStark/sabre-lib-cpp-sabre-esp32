@@ -3,6 +3,7 @@
 
 #include "esp_err.h"
 #include "esp_event.h"
+#include "esp_netif.h"
 #include "esp_wifi_types_generic.h"
 
 typedef struct
@@ -199,5 +200,6 @@ esp_err_t esp_wifi_start(void);
 esp_err_t esp_wifi_stop(void);
 esp_err_t esp_wifi_deinit(void);
 esp_err_t esp_wifi_connect(void);
+esp_err_t esp_wifi_disconnect(void);
 
 #endif

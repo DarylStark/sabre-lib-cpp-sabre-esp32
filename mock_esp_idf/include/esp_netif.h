@@ -13,4 +13,7 @@ typedef struct
 esp_err_t esp_netif_init(void);
 esp_err_t esp_netif_deinit(void);
 
+esp_err_t esp_netif_create_default_wifi_sta(void);
+esp_err_t esp_netif_create_default_wifi_ap(void);
+
 #endif
