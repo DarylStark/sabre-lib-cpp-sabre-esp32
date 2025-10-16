@@ -15,4 +15,3 @@ endif()
 
 # Application source
 add_subdirectory(src)
-add_subdirectory(mock_esp_idf)

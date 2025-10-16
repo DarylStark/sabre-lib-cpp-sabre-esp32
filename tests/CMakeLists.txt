@@ -22,3 +22,5 @@ target_include_directories(
 
 include(GoogleTest)
 gtest_discover_tests(sabre_esp32_tests)
+
+add_subdirectory(mock_esp_idf)
