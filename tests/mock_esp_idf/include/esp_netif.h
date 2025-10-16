@@ -2,6 +2,7 @@
 #define ESP_NETIF_H
 
 #include "esp_err.h"
+#include <cstdint>
 #include <stdbool.h>
 
 struct esp_ip4_addr

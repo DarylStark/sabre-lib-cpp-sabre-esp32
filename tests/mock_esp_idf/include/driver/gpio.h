@@ -2,6 +2,7 @@
 #define GPIO_H_
 
 #include "../esp_err.h"
+#include <stdint.h>
 
 typedef enum
 {
@@ -90,9 +91,5 @@ esp_err_t gpio_pullup_en(gpio_num_t gpio_num);
 esp_err_t gpio_set_intr_type(gpio_num_t gpio_num, gpio_int_type_t intr_type);
 esp_err_t gpio_reset_pin(gpio_num_t gpio_num);
 esp_err_t gpio_set_direction(gpio_num_t gpio_num, gpio_mode_t mode);
-/*
-gpio_reset_pin
-gpio_set_direction
-gpio_isr_t
-*/
+
 #endif

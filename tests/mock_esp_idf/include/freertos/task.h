@@ -1,6 +1,7 @@
 #ifndef TASK_H_
 #define TASK_H_
 
+#include "FreeRTOS.h"
 #include <stdint.h>
 
 struct tskTaskControlBlock;
