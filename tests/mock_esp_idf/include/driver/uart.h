@@ -3,6 +3,7 @@
 
 #include "../esp_err.h"
 #include "freertos/FreeRTOS.h"
+#include <cstddef>
 
 #define UART_PIN_NO_CHANGE (-1)
 

@@ -59,25 +59,29 @@ auto mock_call(const std::string &name, Fn &&fn, Args &&...args)
 {
     uint64_t start =
         std::chrono::steady_clock::now().time_since_epoch().count();
-
-    // Run the function and save the return value
-    auto temp = fn(std::forward<Args>(args)...);
-    uint64_t end = std::chrono::steady_clock::now().time_since_epoch().count();
+    using ReturnT = std::invoke_result_t<Fn, Args...>;
     std::ostringstream retval;
-    retval << temp;
-
-    // Create a vector with the given arguments
     std::vector<std::string> arg_list;
     (arg_list.push_back((std::ostringstream{} << args).str()), ...);
+    uint64_t end;
 
-    // Create the `FunctionCall` object
-    FunctionCall fc{name, arg_list, retval.str(), start, end};
-
-    // Register the call
-    mockoc.register_function_call(fc);
-
-    // Return the value
-    return temp;
+    if constexpr (std::is_void_v<ReturnT>)
+    {
+        fn(std::forward<Args>(args)...);
+        end = std::chrono::steady_clock::now().time_since_epoch().count();
+        FunctionCall fc{name, arg_list, "void", start, end};
+        mockoc.register_function_call(fc);
+        // No return for void
+    }
+    else
+    {
+        auto temp = fn(std::forward<Args>(args)...);
+        end = std::chrono::steady_clock::now().time_since_epoch().count();
+        retval << temp;
+        FunctionCall fc{name, arg_list, retval.str(), start, end};
+        mockoc.register_function_call(fc);
+        return temp;
+    }
 }
 
 #endif // MOCKOC_HPP
