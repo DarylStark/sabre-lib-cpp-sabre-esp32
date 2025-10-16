@@ -19,8 +19,7 @@ endif()
 target_include_directories(
     sabre_esp32
     PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/
-    ${CMAKE_CURRENT_SOURCE_DIR}/../mock_esp_idf/
+    ${CMAKE_CURRENT_SOURCE_DIR}/../tests/mock_esp_idf/
     ${sabre_SOURCE_DIR}/src
 )
 
