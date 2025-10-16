@@ -1,6 +1,11 @@
 #ifndef UART_H_
 #define UART_H_
 
+#include "../esp_err.h"
+#include "freertos/FreeRTOS.h"
+
+#define UART_PIN_NO_CHANGE (-1)
+
 typedef enum
 {
     UART_NUM_0,
@@ -53,6 +58,19 @@ typedef enum
     UART_HW_FLOWCTRL_MAX = 0x4,
 } uart_hw_flowcontrol_t;
 
+typedef enum
+{
+    UART_SCLK_DEFAULT = 0,
+    UART_SCLK_XTAL,
+    UART_SCLK_APB,
+    UART_SCLK_REF_TICK
+} uart_sclk_t;
+
+typedef enum
+{
+    LP_UART_SCLK_DEFAULT = 0
+} lp_uart_sclk_t;
+
 typedef struct
 {
     int baud_rate;
@@ -75,7 +93,7 @@ typedef struct
 
 esp_err_t uart_param_config(uart_port_t uart_num,
                             const uart_config_t *uart_config);
-esp_err_t uart_set_pin(uart_port_t uart_num, int tx_io_num, int int rx_io_num,
+esp_err_t uart_set_pin(uart_port_t uart_num, int tx_io_num, int rx_io_num,
                        int rts_io_num, int cts_io_num);
 esp_err_t uart_driver_install(uart_port_t uart_num, int rx_buffer_size,
                               int tx_buffer_size, int queue_size,

@@ -1,7 +1,7 @@
 #ifndef ESP_EVENT_BASE_H
 #define ESP_EVENT_BASE_H
 
-#include <cstdint>
+#include <stdint.h>
 
 typedef const char *esp_event_base_t;
 typedef void (*esp_event_handler_t)(void *event_handler_arg,

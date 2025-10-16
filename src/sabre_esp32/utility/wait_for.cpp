@@ -1,5 +1,7 @@
 #include "wait_for.hpp"
 
+#include "freertos/task.h"
+
 namespace sabre::esp32
 {
     uint64_t WaitFor::_get_current_time() const

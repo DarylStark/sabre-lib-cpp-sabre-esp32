@@ -5,6 +5,7 @@
 #include "esp_event.h"
 #include "esp_netif.h"
 #include "esp_wifi_types_generic.h"
+#include <stdbool.h>
 
 typedef struct
 {
@@ -162,6 +163,11 @@ typedef struct
 #define CONFIG_ESP_WIFI_ESPNOW_MAX_ENCRYPT_NUM 0
 #define CONFIG_ESP_WIFI_DYNAMIC_RX_MGMT_BUF 0
 #define CONFIG_ESP_WIFI_DYNAMIC_RX_BUFFER_NUM 10
+#define IP_EVENT_STA_GOT_IP 1
+#define IP_EVENT_STA_LOST_IP 2
+#define IP_EVENT_ETH_GOT_IP 3
+extern const esp_event_base_t WIFI_EVENT;
+extern const esp_event_base_t IP_EVENT;
 
 #define WIFI_FEATURE_CAPS                                                      \
     (WIFI_ENABLE_WPA3_SAE | WIFI_ENABLE_CACHE_TX_BUFFER | WIFI_FTM_INITIATOR | \
@@ -201,5 +207,6 @@ esp_err_t esp_wifi_stop(void);
 esp_err_t esp_wifi_deinit(void);
 esp_err_t esp_wifi_connect(void);
 esp_err_t esp_wifi_disconnect(void);
+esp_err_t esp_wifi_set_config(wifi_interface_t ifx, wifi_config_t *conf);
 
 #endif

@@ -2,8 +2,22 @@
 #define ESP_WIFI_TYPES_GENERIC_H_
 
 #include "esp_event.h"
+#include <stdbool.h>
 
 #define SAE_H2E_IDENTIFIER_LEN 32
+#define ESP_IF_WIFI_NAN 1
+#define ESP_IF_WIFI_AP 2
+#define ESP_IF_WIFI_STA 3
+
+typedef enum
+{
+    WIFI_IF_STA = ESP_IF_WIFI_NAN, /**< Station interface */
+    WIFI_IF_AP = ESP_IF_WIFI_AP,   /**< Soft-AP interface */
+#if CONFIG_SOC_WIFI_NAN_SUPPORT || !CONFIG_SOC_WIFI_ENABLED
+    WIFI_IF_NAN = ESP_IF_WIFI_NAN, /**< NAN interface */
+#endif
+    WIFI_IF_MAX /**< Maximum number of interfaces */
+} wifi_interface_t;
 
 typedef enum
 {
@@ -358,8 +372,6 @@ typedef union
     wifi_sta_config_t sta;
     wifi_nan_config_t nan;
 } wifi_config_t;
-
-extern esp_event_base_t const WIFI_EVENT;
 
 typedef enum
 {

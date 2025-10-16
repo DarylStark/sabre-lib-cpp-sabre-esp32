@@ -3,7 +3,9 @@
 
 #include "esp_err.h"
 #include "esp_event_base.h"
-#include <cstdint>
+#include <stdint.h>
+
+#define ESP_EVENT_ANY_ID -1
 
 esp_err_t esp_event_loop_create_default(void);
 esp_err_t esp_event_handler_register(esp_event_base_t event_base,
