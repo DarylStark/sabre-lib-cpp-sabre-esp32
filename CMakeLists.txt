@@ -1,4 +1,17 @@
-idf_component_register(
-    SRCS "sabre_esp32/foo.cpp" 
-    INCLUDE_DIRS "include"
-)
+cmake_minimum_required(VERSION 3.14)
+project(sabre_esp32 LANGUAGES CXX C)
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED on)
+
+if(BUILD_TESTS STREQUAL "ON")
+    message(STATUS "Enabling testing")
+    enable_testing()
+    message(STATUS "Enabling coverage flags")
+    add_compile_options(--coverage)
+    add_link_options(--coverage)
+    add_subdirectory(tests)
+endif()
+
+# Application source
+add_subdirectory(src)
