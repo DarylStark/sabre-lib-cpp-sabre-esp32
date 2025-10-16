@@ -1,6 +1,9 @@
 #include <gtest/gtest.h>
 
-TEST(Dummy, Dummy)
+#include <sabre_esp32/gpio/input_gpio.hpp>
+
+TEST(InputGPIO, CheckCorrectNumber)
 {
-    ASSERT_EQ(1, 1);
+    sabre::esp32::InputGPIO gpio(4);
+    gpio.reset();
 }

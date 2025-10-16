@@ -66,6 +66,8 @@
         "unordered_set": "cpp",
         "fstream": "cpp",
         "span": "cpp",
-        "esp_wifi.h": "c"
+        "esp_wifi.h": "c",
+        "gpio.h": "c",
+        "mockoc.hpp": "c"
     }
 }
