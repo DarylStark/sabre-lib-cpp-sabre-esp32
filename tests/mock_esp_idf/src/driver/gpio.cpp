@@ -1,8 +1,11 @@
 #include "../../include/driver/gpio.h"
 #include <mockoc.hpp>
 
+GPIOState gpio_state;
+
 esp_err_t gpio_set_level(gpio_num_t gpio_num, uint32_t level)
 {
+    gpio_state.set_level(gpio_num, level);
     return mock_call(
         "gpio_set_level",
         [](gpio_num_t gpio_num, uint32_t level) { return ESP_OK; }, gpio_num,
@@ -12,7 +15,9 @@ esp_err_t gpio_set_level(gpio_num_t gpio_num, uint32_t level)
 int gpio_get_level(gpio_num_t gpio_num)
 {
     return mock_call(
-        "gpio_get_level", [](gpio_num_t gpio_num) { return 1; }, gpio_num);
+        "gpio_get_level",
+        [](gpio_num_t gpio_num) { return gpio_state.get_level(gpio_num); },
+        gpio_num);
 }
 
 esp_err_t gpio_install_isr_service(int intr_alloc_flags)

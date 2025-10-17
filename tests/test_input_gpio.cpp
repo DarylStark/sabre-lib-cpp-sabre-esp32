@@ -9,6 +9,7 @@ protected:
     void SetUp() override
     {
         mockoc.clear();
+        gpio_state.clear();
     }
 };
 
@@ -58,4 +59,44 @@ TEST_F(InputGPIOMockTest, DisablePulldownCallsCorrectFunction)
     gpio.disable_pulldown();
     ASSERT_TRUE(mockoc.was_called("gpio_pulldown_dis"));
     ASSERT_EQ(mockoc.last_call_for_function("gpio_pulldown_dis").args[0], "9");
+}
+
+TEST_F(InputGPIOMockTest, AddISRCheckIfISRServiceIsInstalled)
+{
+    InputGPIO gpio(9);
+    gpio.add_interrupt_handler([](int) {}, sabre::ISRTrigger::RISING);
+    ASSERT_TRUE(mockoc.was_called("gpio_install_isr_service"));
+}
+
+TEST_F(InputGPIOMockTest, AddISRCheckIfISRServiceIsNotInstalledTwice)
+{
+    InputGPIO gpio_9(9);
+    InputGPIO gpio_10(10);
+    gpio_9.add_interrupt_handler([](int) {}, sabre::ISRTrigger::RISING);
+    mockoc.clear();
+    gpio_10.add_interrupt_handler([](int) {}, sabre::ISRTrigger::RISING);
+    ASSERT_FALSE(mockoc.was_called("gpio_install_isr_service"));
+}
+
+TEST_F(InputGPIOMockTest, GetLevelReturnsCorrectValueFalse)
+{
+    InputGPIO gpio(11);
+    gpio_state.set_level(GPIO_NUM_11, 0);
+    bool level = gpio.get_level();
+    ASSERT_EQ(level, false);
+}
+
+TEST_F(InputGPIOMockTest, GetLevelReturnsCorrectValueTrue)
+{
+    InputGPIO gpio(11);
+    gpio_state.set_level(GPIO_NUM_11, 1);
+    bool level = gpio.get_level();
+    ASSERT_EQ(level, true);
+}
+
+TEST_F(InputGPIOMockTest, GetLevelReturnsCorrectValueFloating)
+{
+    InputGPIO gpio(11);
+    bool level = gpio.get_level();
+    ASSERT_EQ(level, false);
 }

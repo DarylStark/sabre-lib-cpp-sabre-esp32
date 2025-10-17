@@ -2,7 +2,45 @@
 #define GPIO_H_
 
 #include "../esp_err.h"
-#include <stdint.h>
+#include <algorithm>
+#include <array>
+#include <cstdint>
+
+// Number of pins supported by the mock (covers GPIO_NUM_0 .. GPIO_NUM_39)
+constexpr int GPIO_MAX_PINS = 40;
+
+class GPIOState
+{
+private:
+    std::array<int, GPIO_MAX_PINS> _pin_levels;
+
+public:
+    GPIOState()
+    {
+        clear();
+    }
+
+    int get_level(int pin) const
+    {
+        if (pin < 0 || pin >= GPIO_MAX_PINS)
+            return -1;
+        return _pin_levels[pin];
+    }
+
+    void set_level(int pin, int level)
+    {
+        if (pin < 0 || pin >= GPIO_MAX_PINS)
+            return;
+        _pin_levels[pin] = level;
+    }
+
+    void clear()
+    {
+        _pin_levels.fill(-1);
+    }
+};
+
+extern GPIOState gpio_state;
 
 typedef enum
 {
