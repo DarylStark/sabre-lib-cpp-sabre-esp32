@@ -1,4 +1,3 @@
-// #include <gpio_bank.hpp>
 #include <gtest/gtest.h>
 #include <mcu.hpp>
 #include <mockoc.hpp>
