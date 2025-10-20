@@ -84,7 +84,7 @@ TEST_F(InputGPIOMockTest, AddISRCheckIfISRServiceIsNotInstalledTwice)
 TEST_F(InputGPIOMockTest, GetLevelReturnsCorrectValueFalse)
 {
     InputGPIO gpio(11);
-    mock_mcu.set_gpio_level(11, 0);
+    mock_mcu.gpio_bank().set_level(11, 0);
     bool level = gpio.get_level();
     ASSERT_EQ(level, false);
 }
@@ -92,7 +92,7 @@ TEST_F(InputGPIOMockTest, GetLevelReturnsCorrectValueFalse)
 TEST_F(InputGPIOMockTest, GetLevelReturnsCorrectValueTrue)
 {
     InputGPIO gpio(11);
-    mock_mcu.set_gpio_level(11, 1);
+    mock_mcu.gpio_bank().set_level(11, 1);
     bool level = gpio.get_level();
     ASSERT_EQ(level, true);
 }
@@ -102,4 +102,14 @@ TEST_F(InputGPIOMockTest, GetLevelReturnsCorrectValueFloating)
     InputGPIO gpio(11);
     bool level = gpio.get_level();
     ASSERT_EQ(level, false);
+}
+
+TEST_F(InputGPIOMockTest, SetAndRunISR)
+{
+    InputGPIO gpio(11);
+    uint32_t gpio_number = 0;
+    gpio.add_interrupt_handler([&gpio_number](int pin) { gpio_number = pin; },
+                               sabre::ISRTrigger::RISING);
+    mock_mcu.gpio_bank().run_isr(11);
+    ASSERT_EQ(gpio_number, 11);
 }

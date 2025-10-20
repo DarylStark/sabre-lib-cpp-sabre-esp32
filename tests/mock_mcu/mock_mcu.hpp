@@ -14,7 +14,7 @@ private:
 
 public:
     MockMCU(const MockMCUConfiguration config);
-    void set_gpio_level(int pin, int level);
-    int get_gpio_level(int pin) const;
     void clear();
+
+    GPIOBank &gpio_bank();
 };

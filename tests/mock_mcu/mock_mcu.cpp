@@ -5,17 +5,12 @@ MockMCU::MockMCU(const MockMCUConfiguration config)
 {
 }
 
-void MockMCU::set_gpio_level(int pin, int level)
-{
-    _gpio_bank.set_level(pin, level);
-}
-
-int MockMCU::get_gpio_level(int pin) const
-{
-    return _gpio_bank.get_level(pin);
-}
-
 void MockMCU::clear()
 {
     _gpio_bank.clear();
+}
+
+GPIOBank &MockMCU::gpio_bank()
+{
+    return _gpio_bank;
 }
