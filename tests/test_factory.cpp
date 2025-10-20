@@ -1,17 +1,10 @@
 #include <gtest/gtest.h>
-#include <mcu.hpp>
-#include <mockoc.hpp>
 #include <sabre_esp32/factory.hpp>
 
 class FactoryTest : public ::testing::Test
 {
 protected:
     sabre::esp32::Factory _factory;
-    void SetUp() override
-    {
-        mockoc.clear();
-        mock_mcu.clear();
-    }
 };
 
 TEST_F(FactoryTest, CreateUARTObject)

@@ -1,4 +1,4 @@
-file(GLOB SOURCES CONFIGURE_DEPENDS test_*.cpp)
+file(GLOB SOURCES CONFIGURE_DEPENDS main.cpp test_*.cpp)
 add_executable(sabre_esp32_tests ${SOURCES})
 
 include(FetchContent)
@@ -9,7 +9,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(googletest)
 
-target_link_libraries(sabre_esp32_tests PRIVATE gtest gtest_main sabre_esp32 mock_esp_idf mockoc mock_mcu)
+target_link_libraries(sabre_esp32_tests PRIVATE gtest sabre_esp32 mock_esp_idf mockoc mock_mcu)
 
 target_compile_options(sabre_esp32_tests PRIVATE --coverage)
 target_link_options(sabre_esp32_tests PRIVATE --coverage)

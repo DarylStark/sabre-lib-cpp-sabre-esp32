@@ -5,17 +5,7 @@
 
 using namespace sabre::esp32;
 
-class OutputGPIOMockTest : public ::testing::Test
-{
-protected:
-    void SetUp() override
-    {
-        mockoc.clear();
-        mock_mcu.clear();
-    }
-};
-
-TEST_F(OutputGPIOMockTest, ResetCallsCorrectFunction)
+TEST(OutputGPIOMockTest, ResetCallsCorrectFunction)
 {
     OutputGPIO gpio(4);
     gpio.reset();
@@ -23,7 +13,7 @@ TEST_F(OutputGPIOMockTest, ResetCallsCorrectFunction)
     ASSERT_EQ(mockoc.last_call_for_function("gpio_reset_pin").args[0], "4");
 }
 
-TEST_F(OutputGPIOMockTest, SetHigh)
+TEST(OutputGPIOMockTest, SetHigh)
 {
     OutputGPIO gpio(4);
     gpio.set_high();
@@ -32,7 +22,7 @@ TEST_F(OutputGPIOMockTest, SetHigh)
     ASSERT_EQ(mockoc.last_call_for_function("gpio_set_level").args[1], "1");
 }
 
-TEST_F(OutputGPIOMockTest, SetLow)
+TEST(OutputGPIOMockTest, SetLow)
 {
     OutputGPIO gpio(4);
     gpio.set_low();
@@ -41,7 +31,7 @@ TEST_F(OutputGPIOMockTest, SetLow)
     ASSERT_EQ(mockoc.last_call_for_function("gpio_set_level").args[1], "0");
 }
 
-TEST_F(OutputGPIOMockTest, SetLevelHigh)
+TEST(OutputGPIOMockTest, SetLevelHigh)
 {
     OutputGPIO gpio(4);
     gpio.set_level(true);
@@ -50,7 +40,7 @@ TEST_F(OutputGPIOMockTest, SetLevelHigh)
     ASSERT_EQ(mockoc.last_call_for_function("gpio_set_level").args[1], "1");
 }
 
-TEST_F(OutputGPIOMockTest, SetLevelLow)
+TEST(OutputGPIOMockTest, SetLevelLow)
 {
     OutputGPIO gpio(4);
     gpio.set_level(false);
@@ -59,7 +49,7 @@ TEST_F(OutputGPIOMockTest, SetLevelLow)
     ASSERT_EQ(mockoc.last_call_for_function("gpio_set_level").args[1], "0");
 }
 
-TEST_F(OutputGPIOMockTest, IsResettedInDestructor)
+TEST(OutputGPIOMockTest, IsResettedInDestructor)
 {
     {
         OutputGPIO gpio(12);

@@ -7,11 +7,6 @@ class NTPClientTest : public ::testing::Test
 {
 protected:
     sabre::esp32::NTPClient _ntp_client{"pool.ntp.org"};
-
-    void SetUp() override
-    {
-        mockoc.clear();
-    }
 };
 
 TEST_F(NTPClientTest, StartNTPClient)
