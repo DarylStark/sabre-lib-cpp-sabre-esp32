@@ -113,3 +113,12 @@ TEST_F(InputGPIOMockTest, SetAndRunISR)
     mock_mcu.gpio_bank().run_isr(11);
     ASSERT_EQ(gpio_number, 11);
 }
+
+TEST_F(InputGPIOMockTest, IsResettedInDestructor)
+{
+    {
+        InputGPIO gpio(12);
+    }
+    ASSERT_TRUE(mockoc.was_called("gpio_reset_pin"));
+    ASSERT_EQ(mockoc.last_call_for_function("gpio_reset_pin").args[0], "12");
+}
