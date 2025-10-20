@@ -1,2 +1,2 @@
 file(GLOB SOURCES *.cpp)
-add_library(mock_mcu SHARED ${SOURCES})
+add_library(mock_mcu STATIC ${SOURCES})

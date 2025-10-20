@@ -1,5 +1,5 @@
 file(GLOB SOURCES sabre_esp32/**/*.cpp sabre_esp32/*.cpp)
-add_library(sabre_esp32 SHARED ${SOURCES})
+add_library(sabre_esp32 STATIC ${SOURCES})
 
 include(FetchContent)
 FetchContent_Declare(

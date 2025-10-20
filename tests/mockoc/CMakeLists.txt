@@ -1,2 +1,2 @@
 file(GLOB SOURCES *.cpp)
-add_library(mockoc SHARED ${SOURCES})
+add_library(mockoc STATIC ${SOURCES})
