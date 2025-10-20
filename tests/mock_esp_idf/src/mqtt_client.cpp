@@ -24,7 +24,9 @@ esp_err_t esp_mqtt_client_destroy(esp_mqtt_client_handle_t client)
 esp_mqtt_client_handle_t esp_mqtt_client_init(const void *config)
 {
     return mock_call(
-        "esp_mqtt_client_init", [](const void *config) { return nullptr; },
+        "esp_mqtt_client_init",
+        [](const void *config)
+        { return reinterpret_cast<esp_mqtt_client_handle_t>(0x1); },
         config);
 }
 

@@ -118,7 +118,7 @@ typedef enum esp_mqtt_event_id_t
                          */
 } esp_mqtt_event_id_t;
 
-typedef struct esp_mqtt_event_t
+typedef struct
 {
     esp_mqtt_event_id_t event_id;
     esp_mqtt_client_handle_t client;
