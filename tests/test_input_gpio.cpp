@@ -1,6 +1,8 @@
+#include <gpio_state.hpp>
 #include <gtest/gtest.h>
 #include <mockoc.hpp>
 #include <sabre_esp32/gpio/input_gpio.hpp>
+
 using namespace sabre::esp32;
 
 class InputGPIOMockTest : public ::testing::Test

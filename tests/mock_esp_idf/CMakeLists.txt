@@ -6,6 +6,7 @@ target_include_directories(
     PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/../mockoc/
+    ${CMAKE_CURRENT_SOURCE_DIR}/../mock_mcu/
 )
 
-target_link_libraries(mock_esp_idf PRIVATE mockoc)
+target_link_libraries(mock_esp_idf PUBLIC mockoc mock_mcu)
