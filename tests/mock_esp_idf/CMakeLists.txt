@@ -1,4 +1,4 @@
-file(GLOB SOURCES src/**/*.cpp src/*.cpp)
+file(GLOB SOURCES CONFIGURE_DEPENDS src/**/*.cpp src/*.cpp)
 add_library(mock_esp_idf STATIC ${SOURCES})
 
 target_include_directories(

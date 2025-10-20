@@ -1,4 +1,4 @@
-file(GLOB SOURCES sabre_esp32/**/*.cpp sabre_esp32/*.cpp)
+file(GLOB SOURCES CONFIGURE_DEPENDS sabre_esp32/**/*.cpp sabre_esp32/*.cpp)
 add_library(sabre_esp32 STATIC ${SOURCES})
 
 include(FetchContent)

@@ -1,2 +1,2 @@
-file(GLOB SOURCES *.cpp)
+file(GLOB SOURCES CONFIGURE_DEPENDS *.cpp)
 add_library(mockoc STATIC ${SOURCES})
