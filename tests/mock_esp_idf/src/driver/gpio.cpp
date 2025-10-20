@@ -1,7 +1,7 @@
 #include "../../include/driver/gpio.h"
 #include <mockoc.hpp>
 
-#include <gpio_state.hpp>
+#include "mcu.hpp"
 
 esp_err_t gpio_set_level(gpio_num_t gpio_num, uint32_t level)
 {

@@ -1,5 +1,6 @@
 #include <gpio_state.hpp>
 #include <gtest/gtest.h>
+#include <mcu.hpp>
 #include <mockoc.hpp>
 #include <sabre_esp32/gpio/input_gpio.hpp>
 
