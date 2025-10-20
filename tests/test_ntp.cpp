@@ -37,3 +37,12 @@ TEST_F(NTPClientTest, IsSynchronizedTrue)
     mock_mcu.set_time_synced(true);
     ASSERT_TRUE(_ntp_client.is_synchronized());
 }
+
+TEST_F(NTPClientTest, IsStoppedInDestructor)
+{
+    // Check if the destructor calls stop()
+    {
+        sabre::esp32::NTPClient ntp_client{"time.nist.gov"};
+    }
+    ASSERT_TRUE(mockoc.was_called("esp_sntp_stop"));
+}
