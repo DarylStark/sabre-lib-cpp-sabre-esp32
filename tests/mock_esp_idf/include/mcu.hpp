@@ -1,3 +1,3 @@
-#include <gpio_state.hpp>
+#include <mock_mcu.hpp>
 
-extern GPIOState gpio_state;
+extern MockMCU mock_mcu;

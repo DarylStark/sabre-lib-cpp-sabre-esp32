@@ -1,4 +1,4 @@
-#include <gpio_state.hpp>
+#include <gpio_bank.hpp>
 #include <gtest/gtest.h>
 #include <mcu.hpp>
 #include <mockoc.hpp>
@@ -12,7 +12,7 @@ protected:
     void SetUp() override
     {
         mockoc.clear();
-        gpio_state.clear();
+        mock_mcu.clear();
     }
 };
 
@@ -84,7 +84,7 @@ TEST_F(InputGPIOMockTest, AddISRCheckIfISRServiceIsNotInstalledTwice)
 TEST_F(InputGPIOMockTest, GetLevelReturnsCorrectValueFalse)
 {
     InputGPIO gpio(11);
-    gpio_state.set_level(GPIO_NUM_11, 0);
+    mock_mcu.set_gpio_level(11, 0);
     bool level = gpio.get_level();
     ASSERT_EQ(level, false);
 }
@@ -92,7 +92,7 @@ TEST_F(InputGPIOMockTest, GetLevelReturnsCorrectValueFalse)
 TEST_F(InputGPIOMockTest, GetLevelReturnsCorrectValueTrue)
 {
     InputGPIO gpio(11);
-    gpio_state.set_level(GPIO_NUM_11, 1);
+    mock_mcu.set_gpio_level(11, 1);
     bool level = gpio.get_level();
     ASSERT_EQ(level, true);
 }

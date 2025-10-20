@@ -4,9 +4,6 @@
 #include <cstdint>
 #include <vector>
 
-// Number of pins supported by the mock (covers GPIO_NUM_0 .. GPIO_NUM_39)
-constexpr int GPIO_MAX_PINS = 40;
-
 enum class GPIOType
 {
     UNDEFINED,
@@ -20,13 +17,13 @@ struct GPIO
     int16_t level = -1;
 };
 
-class GPIOState
+class GPIOBank
 {
 private:
     std::vector<GPIO> _pin_levels;
 
 public:
-    GPIOState(uint32_t pin_count);
+    GPIOBank(uint32_t pin_count);
     int get_level(int pin) const;
     void set_level(int pin, int level);
     void clear();

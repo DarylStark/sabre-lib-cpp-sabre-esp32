@@ -5,18 +5,21 @@
 
 esp_err_t gpio_set_level(gpio_num_t gpio_num, uint32_t level)
 {
-    gpio_state.set_level(gpio_num, level);
     return mock_call(
         "gpio_set_level",
-        [](gpio_num_t gpio_num, uint32_t level) { return ESP_OK; }, gpio_num,
-        level);
+        [](gpio_num_t gpio_num, uint32_t level)
+        {
+            mock_mcu.set_gpio_level(gpio_num, level);
+            return ESP_OK;
+        },
+        gpio_num, level);
 }
 
 int gpio_get_level(gpio_num_t gpio_num)
 {
     return mock_call(
         "gpio_get_level",
-        [](gpio_num_t gpio_num) { return gpio_state.get_level(gpio_num); },
+        [](gpio_num_t gpio_num) { return mock_mcu.get_gpio_level(gpio_num); },
         gpio_num);
 }
 
