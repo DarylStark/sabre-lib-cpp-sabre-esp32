@@ -89,9 +89,12 @@ namespace sabre::esp32
          * This method starts the Wi-Fi functionality based on the enabled
          * modes. It should be called after initializing the Wi-Fi manager.
          *
+         * @param timeout_in_ms The maximum time to wait for Wi-Fi to start in
+         * milliseconds. Defaults to 1000 ms.
+         *
          * @throws `sabre::esp32::ESP_IDF_Error` if starting Wi-Fi fails.
          */
-        void start();
+        void start(uint64_t timeout_in_ms = 1000);
 
         /**
          * @brief Stop the Wi-Fi functionality for a specific mode.
@@ -144,6 +147,24 @@ namespace sabre::esp32
          */
         void handle_event(esp_event_base_t event_base, int32_t event_id,
                           void *event_data);
+
+        /**
+         * @brief Check if the Wi-Fi is started.
+         * @return true if the Wi-Fi is started, false otherwise.
+         */
+        bool is_started() const;
+
+        /**
+         * @brief Check if Station mode is enabled.
+         * @return true if Station mode is enabled, false otherwise.
+         */
+        bool station_enabled() const;
+
+        /**
+         * @brief Check if Soft AP mode is enabled.
+         * @return true if Soft AP mode is enabled, false otherwise.
+         */
+        bool soft_ap_enabled() const;
     };
 }; // namespace sabre::esp32
 

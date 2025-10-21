@@ -50,3 +50,18 @@ uint64_t MockMCU::get_time() const
 {
     return _time;
 }
+
+void MockMCU::set_wifi_event_callback(esp_event_handler_t callback, void *args)
+{
+    _wifi_event_callback = callback;
+    _wifi_event_arg = args;
+}
+
+void MockMCU::call_wifi_event_callback(int32_t event_id, void *event_data)
+{
+    if (_wifi_event_callback)
+    {
+        _wifi_event_callback(_wifi_event_arg, "WIFI_EVENT", event_id,
+                             event_data);
+    }
+}

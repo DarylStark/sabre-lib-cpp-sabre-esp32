@@ -91,7 +91,7 @@ namespace sabre::esp32
                                    &_esp32_wifi_event_handler, this);
     }
 
-    void Wifi::start()
+    void Wifi::start(uint64_t timeout_in_ms)
     {
         if (_wifi_started)
             return;
@@ -99,7 +99,7 @@ namespace sabre::esp32
         _logger.debug("Starting WiFi");
         esp_wifi_start();
         WaitFor wait_for_wifi_start([this]() { return this->_wifi_started; },
-                                    1000, 10);
+                                    timeout_in_ms, 10);
         if (wait_for_wifi_start())
             _logger.debug("WiFi started successfully");
         else
@@ -132,8 +132,24 @@ namespace sabre::esp32
     {
         if (event_id == WIFI_EVENT_STA_START || event_id == WIFI_EVENT_AP_START)
             _wifi_started = true;
-        else if (event_id == WIFI_EVENT_STA_STOP ||
-                 event_id == WIFI_EVENT_AP_STOP)
+        else if (event_id == WIFI_EVENT_STA_STOP)
             _wifi_started = false;
+        else if (event_id == WIFI_EVENT_AP_STOP)
+            _wifi_started = false;
+    }
+
+    bool Wifi::is_started() const
+    {
+        return _wifi_started;
+    }
+
+    bool Wifi::station_enabled() const
+    {
+        return _enabled_modes[static_cast<int>(WifiMode::STATION)] == 1;
+    }
+
+    bool Wifi::soft_ap_enabled() const
+    {
+        return _enabled_modes[static_cast<int>(WifiMode::SOFT_AP)] == 1;
     }
 } // namespace sabre::esp32
