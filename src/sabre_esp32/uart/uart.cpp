@@ -7,10 +7,15 @@ namespace sabre::esp32
         : _port(port), _baud_rate(baud_rate), _tx_pin(tx_pin), _rx_pin(rx_pin),
           _is_initialized(false)
     {
-        _initialize();
+        initialize();
     }
 
-    void UART::_initialize()
+    UART::~UART()
+    {
+        deinitialize();
+    }
+
+    void UART::initialize()
     {
         // TODO: Make the variables configurable
 
@@ -50,5 +55,15 @@ namespace sabre::esp32
     void UART::flush()
     {
         throw_if_esp_err(uart_flush_input(_port), "Failed to flush UART input");
+    }
+
+    void UART::deinitialize()
+    {
+        if (_is_initialized)
+        {
+            throw_if_esp_err(uart_driver_delete(_port),
+                             "Failed to deinitialize UART driver");
+            _is_initialized = false;
+        }
     }
 } // namespace sabre::esp32
