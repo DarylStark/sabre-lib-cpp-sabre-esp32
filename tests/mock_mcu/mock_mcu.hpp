@@ -2,6 +2,10 @@
 
 #include "gpio_bank.hpp"
 
+typedef void (*esp_event_handler_t)(void *event_handler_arg,
+                                    const char *event_base, int32_t event_id,
+                                    void *event_data);
+
 struct MockMCUConfiguration
 {
     int gpio_count;
@@ -12,6 +16,8 @@ class MockMCU
 private:
     GPIOBank _gpio_bank;
     bool _time_synced;
+    esp_event_handler_t _mqtt_event_callback;
+    void *_mqtt_event_arg;
 
 public:
     MockMCU(const MockMCUConfiguration config);
@@ -21,4 +27,7 @@ public:
 
     void set_time_synced(bool synced);
     bool get_time_sync_status() const;
+
+    void set_mqtt_event_callback(esp_event_handler_t callback, void *args);
+    void call_mqtt_event_callback(int32_t event_id, void *event_data);
 };

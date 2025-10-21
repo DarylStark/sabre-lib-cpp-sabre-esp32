@@ -25,3 +25,18 @@ bool MockMCU::get_time_sync_status() const
 {
     return _time_synced;
 }
+
+void MockMCU::set_mqtt_event_callback(esp_event_handler_t callback, void *args)
+{
+    _mqtt_event_callback = callback;
+    _mqtt_event_arg = args;
+}
+
+void MockMCU::call_mqtt_event_callback(int32_t event_id, void *event_data)
+{
+    if (_mqtt_event_callback)
+    {
+        _mqtt_event_callback(_mqtt_event_arg, "MQTT_EVENT", event_id,
+                             event_data);
+    }
+}

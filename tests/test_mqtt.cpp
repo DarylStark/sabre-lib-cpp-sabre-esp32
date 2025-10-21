@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <mcu.hpp>
 #include <mockoc.hpp>
 #include <sabre_esp32/clients/mqtt.hpp>
 
@@ -133,6 +134,14 @@ TEST(MQTTClient, PublishWithUndefinedQoSAndRetain)
               "0");
     ASSERT_EQ(mockoc.last_call_for_function("esp_mqtt_client_publish").args[5],
               "0");
+}
+
+TEST(MQTTClient, CallEventCallback)
+{
+    MQTTClient client;
+    client.connect("broker.hivemq.com", "test_client", "user", "pass");
+    mock_mcu.call_mqtt_event_callback(MQTT_EVENT_CONNECTED, nullptr);
+    ASSERT_TRUE(client.is_connected());
 }
 
 TEST(MQTTClient, IsStoppedInDestructor)
