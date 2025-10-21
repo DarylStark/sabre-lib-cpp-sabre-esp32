@@ -18,6 +18,7 @@ private:
     bool _time_synced;
     esp_event_handler_t _mqtt_event_callback;
     void *_mqtt_event_arg;
+    uint64_t _time;
 
 public:
     MockMCU(const MockMCUConfiguration config);
@@ -30,4 +31,7 @@ public:
 
     void set_mqtt_event_callback(esp_event_handler_t callback, void *args);
     void call_mqtt_event_callback(int32_t event_id, void *event_data);
+
+    void set_time(uint64_t time_in_ms);
+    uint64_t get_time() const;
 };

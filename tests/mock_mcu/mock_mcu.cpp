@@ -40,3 +40,13 @@ void MockMCU::call_mqtt_event_callback(int32_t event_id, void *event_data)
                              event_data);
     }
 }
+
+void MockMCU::set_time(uint64_t time_in_ms)
+{
+    _time = time_in_ms;
+}
+
+uint64_t MockMCU::get_time() const
+{
+    return _time;
+}
