@@ -42,7 +42,7 @@ TEST(Wifi, Start)
             wifi->handle_event(0, WIFI_EVENT_STA_START, nullptr);
         });
     wifi->init();
-    wifi->start();
+    wifi->start(50);
     event_thread.join();
     ASSERT_TRUE(mockoc.was_called("esp_wifi_start"));
     ASSERT_TRUE(wifi->is_started());
