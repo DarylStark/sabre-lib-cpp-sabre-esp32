@@ -6,7 +6,22 @@
 
 using namespace sabre::esp32;
 
-TEST(WifiStation, Init)
+class WifiStationTest : public ::testing::Test
+{
+protected:
+    // Shared variable for all tests in this suite
+    ip_event_got_ip_t _ip;
+
+    // Setup logic, runs before each test
+    void SetUp() override
+    {
+        _ip.ip_info.ip.addr = 0xC0A80064;      // 192.168.0.100
+        _ip.ip_info.netmask.addr = 0xFFFFFF00; // 255.255.255.0
+        _ip.ip_info.gw.addr = 0xC0A80001;      // 192.168.0.1
+    }
+};
+
+TEST_F(WifiStationTest, Init)
 {
     WifiStation station;
     station.init();
@@ -14,7 +29,7 @@ TEST(WifiStation, Init)
     ASSERT_TRUE(mockoc.was_called("esp_netif_create_default_wifi_sta"));
 }
 
-TEST(WifiStation, DoubleInit)
+TEST_F(WifiStationTest, DoubleInit)
 {
     WifiStation station;
     station.init();
@@ -24,14 +39,14 @@ TEST(WifiStation, DoubleInit)
     ASSERT_FALSE(mockoc.was_called("esp_netif_create_default_wifi_sta"));
 }
 
-TEST(WifiStation, InitializeBeforeConnect)
+TEST_F(WifiStationTest, InitializeBeforeConnect)
 {
     WifiStation station;
     station.connect("TestSSID", "TestPassword");
     ASSERT_TRUE(mockoc.was_called("esp_wifi_init"));
     ASSERT_TRUE(mockoc.was_called("esp_netif_create_default_wifi_sta"));
 }
-TEST(WifiStation, DontInitializeBeforeConnectIfAlreadyInitialized)
+TEST_F(WifiStationTest, DontInitializeBeforeConnectIfAlreadyInitialized)
 {
     WifiStation station;
     station.init();
@@ -41,7 +56,7 @@ TEST(WifiStation, DontInitializeBeforeConnectIfAlreadyInitialized)
     ASSERT_FALSE(mockoc.was_called("esp_netif_create_default_wifi_sta"));
 }
 
-TEST(WifiStation, Disconnect)
+TEST_F(WifiStationTest, Disconnect)
 {
     WifiStation station;
     station.init();
@@ -51,14 +66,14 @@ TEST(WifiStation, Disconnect)
     ASSERT_FALSE(station.is_connected());
 }
 
-TEST(WifiStation, WifiConnectedEvent)
+TEST_F(WifiStationTest, WifiConnectedEvent)
 {
     WifiStation station;
     station.wifi_event_handler("WIFI", WIFI_EVENT_STA_CONNECTED, nullptr);
     ASSERT_TRUE(station.is_connected());
 }
 
-TEST(WifiStation, WifiDisConnectedEvent)
+TEST_F(WifiStationTest, WifiDisConnectedEvent)
 {
     WifiStation station;
     station.wifi_event_handler("WIFI", WIFI_EVENT_STA_CONNECTED, nullptr);
@@ -67,25 +82,23 @@ TEST(WifiStation, WifiDisConnectedEvent)
     ASSERT_FALSE(station.is_connected());
 }
 
-TEST(WifiStation, WifiHasIPEvent)
+TEST_F(WifiStationTest, WifiHasIPEvent)
 {
-    ip_event_got_ip_t ip;
     WifiStation station;
-    station.ip_event_handler("IP", IP_EVENT_STA_GOT_IP, &ip);
+    station.ip_event_handler("IP", IP_EVENT_STA_GOT_IP, &_ip);
     ASSERT_TRUE(station.has_ipv4_address());
 }
 
-TEST(WifiStation, WifiHasLostIPEvent)
+TEST_F(WifiStationTest, WifiHasLostIPEvent)
 {
-    ip_event_got_ip_t ip;
     WifiStation station;
-    station.ip_event_handler("IP", IP_EVENT_STA_GOT_IP, &ip);
+    station.ip_event_handler("IP", IP_EVENT_STA_GOT_IP, &_ip);
     ASSERT_TRUE(station.has_ipv4_address());
     station.ip_event_handler("IP", IP_EVENT_STA_LOST_IP, nullptr);
     ASSERT_FALSE(station.has_ipv4_address());
 }
 
-TEST(WifiStation, CallWifiEventCallbackConnected)
+TEST_F(WifiStationTest, CallWifiEventCallbackConnected)
 {
     WifiStation station;
     station.init();
@@ -93,7 +106,7 @@ TEST(WifiStation, CallWifiEventCallbackConnected)
     ASSERT_TRUE(station.is_connected());
 }
 
-TEST(WifiStation, CallWifiEventCallbackDisconnected)
+TEST_F(WifiStationTest, CallWifiEventCallbackDisconnected)
 {
     WifiStation station;
     station.init();
@@ -103,21 +116,19 @@ TEST(WifiStation, CallWifiEventCallbackDisconnected)
     ASSERT_FALSE(station.is_connected());
 }
 
-TEST(WifiStation, CallIPEventCallbackGotIP)
+TEST_F(WifiStationTest, CallIPEventCallbackGotIP)
 {
-    ip_event_got_ip_t ip;
     WifiStation station;
     station.init();
-    mock_mcu.call_wifi_event_callback(IP_EVENT_STA_GOT_IP, &ip);
+    mock_mcu.call_wifi_event_callback(IP_EVENT_STA_GOT_IP, &_ip);
     ASSERT_TRUE(station.has_ipv4_address());
 }
 
-TEST(WifiStation, CallIPEventCallbackLostIP)
+TEST_F(WifiStationTest, CallIPEventCallbackLostIP)
 {
-    ip_event_got_ip_t ip;
     WifiStation station;
     station.init();
-    mock_mcu.call_wifi_event_callback(IP_EVENT_STA_GOT_IP, &ip);
+    mock_mcu.call_wifi_event_callback(IP_EVENT_STA_GOT_IP, &_ip);
     ASSERT_TRUE(station.has_ipv4_address());
     mock_mcu.call_wifi_event_callback(IP_EVENT_STA_LOST_IP, nullptr);
     ASSERT_FALSE(station.has_ipv4_address());
