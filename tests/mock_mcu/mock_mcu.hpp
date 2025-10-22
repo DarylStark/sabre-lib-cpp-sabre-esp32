@@ -1,6 +1,7 @@
 #pragma once
 
 #include "gpio_bank.hpp"
+#include <vector>
 
 typedef void (*esp_event_handler_t)(void *event_handler_arg,
                                     const char *event_base, int32_t event_id,
@@ -17,7 +18,7 @@ private:
     GPIOBank _gpio_bank;
     bool _time_synced;
     esp_event_handler_t _mqtt_event_callback;
-    esp_event_handler_t _wifi_event_callback;
+    std::vector<std::pair<esp_event_handler_t, void *>> _wifi_event_callbacks;
     void *_mqtt_event_arg;
     void *_wifi_event_arg;
     uint64_t _time;

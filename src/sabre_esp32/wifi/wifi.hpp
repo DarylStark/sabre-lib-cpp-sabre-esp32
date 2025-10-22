@@ -8,6 +8,8 @@
 
 namespace sabre::esp32
 {
+    constexpr int64_t DEFAULT_WIFI_TIMEOUT = 1000;
+
     /**
      * @brief Enum class representing the different Wi-Fi modes.
      *
@@ -61,6 +63,8 @@ namespace sabre::esp32
         void _set_mode_to_soft_ap();
         void _set_mode();
 
+        int64_t _default_start_timeout = DEFAULT_WIFI_TIMEOUT;
+
     public:
         /**
          * @brief Get the singleton instance of the Wifi class.
@@ -90,18 +94,31 @@ namespace sabre::esp32
          * modes. It should be called after initializing the Wi-Fi manager.
          *
          * @param timeout_in_ms The maximum time to wait for Wi-Fi to start in
-         * milliseconds. Defaults to 1000 ms.
+         * milliseconds. Defaults to -1, which means it will get the value from
+         * the instance variable `default_start_timeout`, which can be set with
+         * `set_default_start_timeout()`.
          *
          * @throws `sabre::esp32::ESP_IDF_Error` if starting Wi-Fi fails.
          */
-        void start(uint64_t timeout_in_ms = 1000);
+        void start(int64_t timeout_in_ms = -1);
+
+        /**
+         * @brief Set the default timeout for starting Wi-Fi.
+         *
+         * This method sets the default timeout value used when starting
+         * the Wi-Fi functionality. This timeout is used if no specific
+         * timeout is provided when calling the `start()` method.
+         *
+         * @param timeout_in_ms The default timeout in milliseconds.
+         */
+        void set_default_start_timeout(int64_t timeout_in_ms);
 
         /**
          * @brief Stop the Wi-Fi functionality for a specific mode.
          *
          * This method stops the Wi-Fi functionality for the specified mode.
-         * It should be called when the Wi-Fi functionality is no longer needed
-         * for that mode.
+         * It should be called when the Wi-Fi functionality is no longer
+         * needed for that mode.
          *
          * @param mode The Wi-Fi mode to stop (Station or Soft AP).
          */

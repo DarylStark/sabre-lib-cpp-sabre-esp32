@@ -9,6 +9,11 @@ void MockMCU::clear()
 {
     _gpio_bank.clear();
     _time_synced = false;
+    _mqtt_event_callback = nullptr;
+    _wifi_event_callbacks.clear();
+    _mqtt_event_arg = nullptr;
+    _wifi_event_arg = nullptr;
+    _time = 0;
 }
 
 GPIOBank &MockMCU::gpio_bank()
@@ -53,15 +58,12 @@ uint64_t MockMCU::get_time() const
 
 void MockMCU::set_wifi_event_callback(esp_event_handler_t callback, void *args)
 {
-    _wifi_event_callback = callback;
-    _wifi_event_arg = args;
+    _wifi_event_callbacks.push_back(std::make_pair(callback, args));
 }
 
 void MockMCU::call_wifi_event_callback(int32_t event_id, void *event_data)
 {
-    if (_wifi_event_callback)
-    {
-        _wifi_event_callback(_wifi_event_arg, "WIFI_EVENT", event_id,
-                             event_data);
-    }
+    for (auto &callback_information : _wifi_event_callbacks)
+        callback_information.first(callback_information.second, "WIFI_EVENT",
+                                   event_id, event_data);
 }

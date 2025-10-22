@@ -91,8 +91,11 @@ namespace sabre::esp32
                                    &_esp32_wifi_event_handler, this);
     }
 
-    void Wifi::start(uint64_t timeout_in_ms)
+    void Wifi::start(int64_t timeout_in_ms)
     {
+        if (timeout_in_ms < 0)
+            timeout_in_ms = _default_start_timeout;
+
         if (_wifi_started)
             return;
 
@@ -104,6 +107,11 @@ namespace sabre::esp32
             _logger.debug("WiFi started successfully");
         else
             _logger.error("WiFi not started");
+    }
+
+    void Wifi::set_default_start_timeout(int64_t timeout_in_ms)
+    {
+        _default_start_timeout = timeout_in_ms;
     }
 
     void Wifi::deinitialize()
@@ -158,5 +166,6 @@ namespace sabre::esp32
         _is_initialized = false;
         _wifi_started = false;
         _enabled_modes.reset();
+        _default_start_timeout = DEFAULT_WIFI_TIMEOUT;
     }
 } // namespace sabre::esp32
