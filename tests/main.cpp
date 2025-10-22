@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <mcu.hpp>
 #include <mockoc.hpp>
+#include <sabre_esp32/wifi/wifi.hpp>
 
 class MyGlobalListener : public ::testing::EmptyTestEventListener
 {
@@ -9,6 +10,8 @@ public:
     {
         mockoc.clear();
         mock_mcu.clear();
+        auto wifi = sabre::esp32::Wifi::get_instance();
+        wifi->reset();
     }
 };
 

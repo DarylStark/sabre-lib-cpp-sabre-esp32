@@ -165,6 +165,14 @@ namespace sabre::esp32
          * @return true if Soft AP mode is enabled, false otherwise.
          */
         bool soft_ap_enabled() const;
+
+        /**
+         * @brief Reset the state of the Wifi instance.
+         *
+         * This method is primarily intended for testing purposes to
+         * ensure a clean state between tests.
+         */
+        void reset();
     };
 }; // namespace sabre::esp32
 

@@ -152,4 +152,11 @@ namespace sabre::esp32
     {
         return _enabled_modes[static_cast<int>(WifiMode::SOFT_AP)] == 1;
     }
+
+    void Wifi::reset()
+    {
+        _is_initialized = false;
+        _wifi_started = false;
+        _enabled_modes.reset();
+    }
 } // namespace sabre::esp32

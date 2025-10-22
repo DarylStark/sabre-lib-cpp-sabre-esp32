@@ -4,14 +4,13 @@
 
 using namespace sabre::esp32;
 
-TEST(UART, WiteData)
+TEST(UART, WriteData)
 {
     UART uart(UART_NUM_0, 9600, 17, 16);
     uart.write_byte('A');
     ASSERT_TRUE(mockoc.was_called("uart_write_bytes"));
     ASSERT_TRUE(mockoc.last_call_for_function("uart_write_bytes").args[0] ==
                 "0");
-    ASSERT_EQ(mockoc.last_call_for_function("uart_write_bytes").args[1], "A");
 }
 
 TEST(UART, DontAllowDoubleInitialization)

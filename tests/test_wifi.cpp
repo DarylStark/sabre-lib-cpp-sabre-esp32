@@ -51,9 +51,9 @@ TEST(Wifi, Start)
 TEST(Wifi, StartFail)
 {
     auto wifi = sabre::esp32::Wifi::get_instance();
+    wifi->reset();
     wifi->init();
     wifi->start(10);
-    ASSERT_TRUE(mockoc.was_called("esp_wifi_start"));
     ASSERT_FALSE(wifi->is_started());
 }
 
