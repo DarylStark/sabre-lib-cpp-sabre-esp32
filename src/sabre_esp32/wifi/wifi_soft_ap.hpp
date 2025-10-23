@@ -21,7 +21,7 @@ namespace sabre::esp32
     private:
         wifi_init_config_t _wifi_init_config = WIFI_INIT_CONFIG_DEFAULT();
         wifi_config_t _wifi_config = {};
-        std::shared_ptr<Wifi> _wifi_instance;
+        Wifi *_wifi_instance;
 
     protected:
         bool _wifi_started = false;

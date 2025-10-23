@@ -17,7 +17,7 @@ extern "C"
 
 namespace sabre::esp32
 {
-    std::shared_ptr<Wifi> Wifi::_instance = nullptr;
+    std::unique_ptr<Wifi> Wifi::_instance = nullptr;
 
     Wifi::Wifi() : _logger("Wifi") {}
 
@@ -57,11 +57,11 @@ namespace sabre::esp32
             _set_mode_to_soft_ap();
     }
 
-    std::shared_ptr<Wifi> Wifi::get_instance()
+    Wifi *Wifi::get_instance()
     {
         if (!_instance)
-            _instance = std::shared_ptr<Wifi>(new Wifi());
-        return _instance;
+            _instance = std::unique_ptr<Wifi>(new Wifi());
+        return _instance.get();
     }
 
     void Wifi::init()
