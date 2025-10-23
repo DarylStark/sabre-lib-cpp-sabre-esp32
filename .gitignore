@@ -2,3 +2,4 @@ build/
 coverage.info
 htmlcov
 coverage.xml
+_codeql_build_dir/
