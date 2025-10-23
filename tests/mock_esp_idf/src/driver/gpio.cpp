@@ -1,18 +1,27 @@
 #include "../../include/driver/gpio.h"
 #include <mockoc.hpp>
 
+#include "mcu.hpp"
+
 esp_err_t gpio_set_level(gpio_num_t gpio_num, uint32_t level)
 {
     return mock_call(
         "gpio_set_level",
-        [](gpio_num_t gpio_num, uint32_t level) { return ESP_OK; }, gpio_num,
-        level);
+        [](gpio_num_t gpio_num, uint32_t level)
+        {
+            mock_mcu.gpio_bank().set_level(gpio_num, level);
+            return ESP_OK;
+        },
+        gpio_num, level);
 }
 
 int gpio_get_level(gpio_num_t gpio_num)
 {
     return mock_call(
-        "gpio_get_level", [](gpio_num_t gpio_num) { return 1; }, gpio_num);
+        "gpio_get_level",
+        [](gpio_num_t gpio_num)
+        { return mock_mcu.gpio_bank().get_level(gpio_num); },
+        gpio_num);
 }
 
 esp_err_t gpio_install_isr_service(int intr_alloc_flags)
@@ -28,7 +37,11 @@ esp_err_t gpio_isr_handler_add(gpio_num_t gpio_num, gpio_isr_t isr_handler,
     return mock_call(
         "gpio_isr_handler_add",
         [](gpio_num_t gpio_num, gpio_isr_t isr_handler, void *args)
-        { return ESP_OK; },
+        {
+            mock_mcu.gpio_bank().set_isr_handler(
+                gpio_num, [isr_handler, args](int pin) { isr_handler(args); });
+            return ESP_OK;
+        },
         gpio_num, isr_handler, args);
 }
 

@@ -91,19 +91,27 @@ namespace sabre::esp32
                                    &_esp32_wifi_event_handler, this);
     }
 
-    void Wifi::start()
+    void Wifi::start(int64_t timeout_in_ms)
     {
+        if (timeout_in_ms < 0)
+            timeout_in_ms = _default_start_timeout;
+
         if (_wifi_started)
             return;
 
         _logger.debug("Starting WiFi");
         esp_wifi_start();
         WaitFor wait_for_wifi_start([this]() { return this->_wifi_started; },
-                                    1000, 10);
+                                    timeout_in_ms, 10);
         if (wait_for_wifi_start())
             _logger.debug("WiFi started successfully");
         else
             _logger.error("WiFi not started");
+    }
+
+    void Wifi::set_default_start_timeout(int64_t timeout_in_ms)
+    {
+        _default_start_timeout = timeout_in_ms;
     }
 
     void Wifi::deinitialize()
@@ -132,8 +140,32 @@ namespace sabre::esp32
     {
         if (event_id == WIFI_EVENT_STA_START || event_id == WIFI_EVENT_AP_START)
             _wifi_started = true;
-        else if (event_id == WIFI_EVENT_STA_STOP ||
-                 event_id == WIFI_EVENT_AP_STOP)
+        else if (event_id == WIFI_EVENT_STA_STOP)
             _wifi_started = false;
+        else if (event_id == WIFI_EVENT_AP_STOP)
+            _wifi_started = false;
+    }
+
+    bool Wifi::is_started() const
+    {
+        return _wifi_started;
+    }
+
+    bool Wifi::station_enabled() const
+    {
+        return _enabled_modes[static_cast<int>(WifiMode::STATION)] == 1;
+    }
+
+    bool Wifi::soft_ap_enabled() const
+    {
+        return _enabled_modes[static_cast<int>(WifiMode::SOFT_AP)] == 1;
+    }
+
+    void Wifi::reset()
+    {
+        _is_initialized = false;
+        _wifi_started = false;
+        _enabled_modes.reset();
+        _default_start_timeout = DEFAULT_WIFI_TIMEOUT;
     }
 } // namespace sabre::esp32

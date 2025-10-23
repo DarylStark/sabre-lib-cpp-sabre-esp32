@@ -1,5 +1,5 @@
-file(GLOB SOURCES sabre_esp32/**/*.cpp sabre_esp32/*.cpp)
-add_library(sabre_esp32 SHARED ${SOURCES})
+file(GLOB SOURCES CONFIGURE_DEPENDS sabre_esp32/**/*.cpp sabre_esp32/*.cpp)
+add_library(sabre_esp32 STATIC ${SOURCES})
 
 include(FetchContent)
 FetchContent_Declare(
@@ -9,7 +9,7 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(sabre)
 
-target_link_libraries(sabre_esp32 PUBLIC sabre mock_esp_idf)
+target_link_libraries(sabre_esp32 PUBLIC sabre)
 
 if(SABRE_ESP32_BUILD_TESTS STREQUAL "ON")
     target_compile_options(sabre_esp32 PRIVATE --coverage)
@@ -19,7 +19,7 @@ endif()
 target_include_directories(
     sabre_esp32
     PUBLIC
-    ${CMAKE_CURRENT_SOURCE_DIR}/../tests/mock_esp_idf/
+    ${CMAKE_CURRENT_SOURCE_DIR}/../tests/mock_esp_idf/include
     ${sabre_SOURCE_DIR}/src
 )
 

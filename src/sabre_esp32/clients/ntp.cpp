@@ -12,6 +12,11 @@ namespace sabre::esp32
         esp_sntp_init();
     }
 
+    NTPClient::~NTPClient()
+    {
+        stop();
+    }
+
     void NTPClient::stop()
     {
         esp_sntp_stop();

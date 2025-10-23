@@ -1,5 +1,6 @@
 #include "../../include/freertos/task.h"
 #include <mockoc.hpp>
+#include <thread>
 
 BaseType_t xTaskCreate(TaskFunction_t pxTaskCode, const char *const pcName,
                        const uint16_t usStackDepth, void *pvParameters,
@@ -11,8 +12,8 @@ BaseType_t xTaskCreate(TaskFunction_t pxTaskCode, const char *const pcName,
            const uint16_t usStackDepth, void *pvParameters,
            UBaseType_t uxPriority, TaskHandle_t *pxCreatedTask)
         {
-            if (pxCreatedTask)
-                *pxCreatedTask = nullptr;
+            *pxCreatedTask = reinterpret_cast<TaskHandle_t>(0x1);
+            pxTaskCode(pvParameters);
             return 1;
         },
         pxTaskCode, pcName, usStackDepth, pvParameters, uxPriority,
@@ -28,5 +29,10 @@ void vTaskDelete(TaskHandle_t xTaskToDelete)
 void vTaskDelay(const TickType_t xTicksToDelay)
 {
     mock_call(
-        "vTaskDelay", [](const TickType_t xTicksToDelay) {}, xTicksToDelay);
+        "vTaskDelay",
+        [](const TickType_t xTicksToDelay) {
+            std::this_thread::sleep_for(
+                std::chrono::milliseconds(xTicksToDelay));
+        },
+        xTicksToDelay);
 }

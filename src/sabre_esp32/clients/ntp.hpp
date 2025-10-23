@@ -20,6 +20,13 @@ namespace sabre::esp32
         NTPClient(const std::string &server);
 
         /**
+         * @brief Destructs the NTPClient object.
+         *
+         * This will stop the NTP client if it is running.
+         */
+        ~NTPClient();
+
+        /**
          * @brief Starts the NTP client.
          *
          * This will initialize the NTP client and start synchronizing time

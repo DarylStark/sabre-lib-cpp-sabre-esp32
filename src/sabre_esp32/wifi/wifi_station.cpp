@@ -70,9 +70,9 @@ namespace sabre::esp32
 
             _logger.debug("Got IPv4 address");
             std::stringstream log;
-            log << "IP address: " << std::string(_ipv4_address) << ", "
-                << "mask: " << std::string(_ipv4_mask) << ", "
-                << "gateway: " << std::string(_ipv4_gateway);
+            log << "IP address: " << std::string(_ipv4_address) << ", ";
+            log << "mask: " << std::string(_ipv4_mask) << ", ";
+            log << "gateway: " << std::string(_ipv4_gateway);
             _logger.info(log.str());
         }
         else if (event_id == IP_EVENT_STA_LOST_IP)
