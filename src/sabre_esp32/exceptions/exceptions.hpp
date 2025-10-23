@@ -20,7 +20,7 @@ namespace sabre::esp32
          *
          * Initializes the error with a default message.
          */
-        ESP_IDF_Error(const std::string &s) : APIError(s) {}
+        ESP_IDF_Error(const std::string &s);
     };
 
     /**
@@ -32,11 +32,7 @@ namespace sabre::esp32
      *
      * @throws `ESP_IDF_Error` if err is not `ESP_OK`.
      */
-    inline void throw_if_esp_err(esp_err_t err, const std::string &msg)
-    {
-        if (err != ESP_OK)
-            throw ESP_IDF_Error(msg);
-    }
+    void throw_if_esp_err(esp_err_t err, const std::string &msg);
 
     /**
      * @brief Throws an ESP_IDF_Error if the provided value is negative.
@@ -46,11 +42,7 @@ namespace sabre::esp32
      *
      * @throws ESP_IDF_Error if value is less than 0.
      */
-    inline void throw_if_negative_value(int32_t value, const std::string &msg)
-    {
-        if (value < 0)
-            throw ESP_IDF_Error(msg);
-    }
+    void throw_if_negative_value(int32_t value, const std::string &msg);
 } // namespace sabre::esp32
 
 #endif // SABRE_ESP32_EXCEPTIONS_H
