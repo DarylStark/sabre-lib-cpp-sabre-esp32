@@ -4,8 +4,8 @@ add_library(sabre_esp32 STATIC ${SOURCES})
 include(FetchContent)
 FetchContent_Declare(
     sabre
-    URL https://github.com/DarylStark/sabre-lib-cpp-sabre/archive/refs/heads/dev.zip
-    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
+    GIT_REPOSITORY https://github.com/DarylStark/sabre-lib-cpp-sabre.git
+    GIT_TAG dev
 )
 FetchContent_MakeAvailable(sabre)
 
