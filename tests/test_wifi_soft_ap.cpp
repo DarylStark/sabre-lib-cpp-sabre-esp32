@@ -28,7 +28,7 @@ TEST(WifiSoftAPTest, CheckMissingWifimode)
 {
     WifiSoftAP soft_ap;
     soft_ap.init();
-    auto wifi = Wifi::get_instance();
+    auto &wifi = Wifi::get_instance();
     ASSERT_FALSE(wifi->soft_ap_enabled());
 }
 
@@ -37,7 +37,7 @@ TEST(WifiSoftAPTest, CorrectModeAfterStart)
     WifiSoftAP soft_ap;
     soft_ap.init();
     soft_ap.start("SSID", "Password");
-    auto wifi = Wifi::get_instance();
+    auto &wifi = Wifi::get_instance();
     ASSERT_TRUE(wifi->soft_ap_enabled());
 }
 
@@ -55,7 +55,7 @@ TEST(WifiSoftAPTest, Stop)
     soft_ap.init();
     soft_ap.start("SSID", "Password");
     soft_ap.stop();
-    auto wifi = Wifi::get_instance();
+    auto &wifi = Wifi::get_instance();
     ASSERT_FALSE(wifi->soft_ap_enabled());
 }
 
@@ -66,7 +66,7 @@ TEST(WifiSoftAPTest, DestructorRemovesSoftAPMode)
         soft_ap.init();
         soft_ap.start("SSID", "Password");
     }
-    auto wifi = Wifi::get_instance();
+    auto &wifi = Wifi::get_instance();
     ASSERT_FALSE(wifi->soft_ap_enabled());
 }
 

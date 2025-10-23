@@ -57,11 +57,11 @@ namespace sabre::esp32
             _set_mode_to_soft_ap();
     }
 
-    Wifi *Wifi::get_instance()
+    std::unique_ptr<Wifi> &Wifi::get_instance()
     {
         if (!_instance)
             _instance = std::unique_ptr<Wifi>(new Wifi());
-        return _instance.get();
+        return _instance;
     }
 
     void Wifi::init()
