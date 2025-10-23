@@ -11,7 +11,7 @@ FetchContent_MakeAvailable(sabre)
 
 target_link_libraries(sabre_esp32 PUBLIC sabre)
 
-if(BUILD_TESTS STREQUAL "ON")
+if(SABRE_ESP32_BUILD_TESTS STREQUAL "ON")
     target_compile_options(sabre_esp32 PRIVATE --coverage)
     target_link_options(sabre_esp32 PRIVATE --coverage)
 endif()
