@@ -2,7 +2,9 @@
 #define GPIO_H_
 
 #include "../esp_err.h"
-#include <stdint.h>
+#include <algorithm>
+#include <array>
+#include <cstdint>
 
 typedef enum
 {

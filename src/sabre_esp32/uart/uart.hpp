@@ -27,8 +27,6 @@ namespace sabre::esp32
         int _rx_pin;
         bool _is_initialized;
 
-        void _initialize();
-
     public:
         /**
          * @brief Constructs a UART object for a specific UART port.
@@ -43,6 +41,19 @@ namespace sabre::esp32
          */
         UART(uart_port_t port, int32_t baud_rate, int tx_pin = 1,
              int rx_pin = 3);
+
+        ~UART();
+
+        /**
+         * @brief Initialize the UART interface.
+         *
+         * This method sets up the UART driver with the specified parameters
+         * such as baud rate, data bits, parity, stop bits, and flow control.
+         *
+         * @throws `sabre::esp32::ESP_IDF_Error` if the UART driver fails to
+         * initialize.
+         */
+        void initialize() override;
 
         /**
          * @brief Write bytes to the UART interface.
@@ -60,6 +71,14 @@ namespace sabre::esp32
          * immediately.
          */
         void flush() override;
+
+        /**
+         * @brief Flush the UART output buffer.
+         *
+         * This method ensures that all data written to the UART is sent out
+         * immediately.
+         */
+        void deinitialize() override;
     };
 } // namespace sabre::esp32
 

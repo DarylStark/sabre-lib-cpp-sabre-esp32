@@ -1,2 +1,2 @@
 file(GLOB SOURCES CONFIGURE_DEPENDS *.cpp)
-add_library(mockoc STATIC ${SOURCES})
+add_library(mock_mcu STATIC ${SOURCES})

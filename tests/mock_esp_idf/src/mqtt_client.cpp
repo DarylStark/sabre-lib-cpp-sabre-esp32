@@ -1,4 +1,5 @@
 #include "../include/mqtt_client.h"
+#include "mcu.hpp"
 #include <mockoc.hpp>
 
 esp_err_t esp_mqtt_client_register_event(esp_mqtt_client_handle_t client,
@@ -10,7 +11,10 @@ esp_err_t esp_mqtt_client_register_event(esp_mqtt_client_handle_t client,
         "esp_mqtt_client_register_event",
         [](esp_mqtt_client_handle_t client, esp_mqtt_event_id_t event_id,
            esp_event_handler_t event_handler, void *event_handler_arg)
-        { return ESP_OK; },
+        {
+            mock_mcu.set_mqtt_event_callback(event_handler, event_handler_arg);
+            return ESP_OK;
+        },
         client, event_id, event_handler, event_handler_arg);
 }
 
@@ -24,7 +28,9 @@ esp_err_t esp_mqtt_client_destroy(esp_mqtt_client_handle_t client)
 esp_mqtt_client_handle_t esp_mqtt_client_init(const void *config)
 {
     return mock_call(
-        "esp_mqtt_client_init", [](const void *config) { return nullptr; },
+        "esp_mqtt_client_init",
+        [](const void *config)
+        { return reinterpret_cast<esp_mqtt_client_handle_t>(0x1); },
         config);
 }
 

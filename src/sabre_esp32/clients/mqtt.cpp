@@ -115,8 +115,6 @@ namespace sabre::esp32
         case MQTT_EVENT_DATA:
             this->process_received(_create_event(event));
             break;
-        default:
-            break;
         }
     }
 } // namespace sabre::esp32
