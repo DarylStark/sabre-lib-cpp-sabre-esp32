@@ -32,21 +32,21 @@ namespace sabre::esp32
          * This will initialize the NTP client and start synchronizing time
          * with the specified NTP server.
          */
-        void start();
+        void start() override;
 
         /**
          * @brief Stops the NTP client.
          *
          * This will stop the NTP client and cease time synchronization.
          */
-        void stop();
+        void stop() override;
 
         /**
          * @brief Checks if the NTP client is synchronized.
          *
          * @returns true if the NTP client is synchronized, false otherwise.
          */
-        bool is_synchronized() const;
+        bool is_synchronized() const override;
     };
 } // namespace sabre::esp32
 

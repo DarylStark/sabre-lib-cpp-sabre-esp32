@@ -1,0 +1,3 @@
+/home/runner/work/sabre-lib-cpp-sabre-esp32/sabre-lib-cpp-sabre-esp32/_codeql_build_dir/_deps/sabre-subbuild/CMakeFiles/sabre-populate.dir
+/home/runner/work/sabre-lib-cpp-sabre-esp32/sabre-lib-cpp-sabre-esp32/_codeql_build_dir/_deps/sabre-subbuild/CMakeFiles/edit_cache.dir
+/home/runner/work/sabre-lib-cpp-sabre-esp32/sabre-lib-cpp-sabre-esp32/_codeql_build_dir/_deps/sabre-subbuild/CMakeFiles/rebuild_cache.dir

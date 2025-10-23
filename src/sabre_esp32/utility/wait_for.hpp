@@ -18,8 +18,8 @@ namespace sabre::esp32
     class WaitFor : public sabre::WaitFor
     {
     protected:
-        uint64_t _get_current_time() const;
-        void _sleep() const;
+        uint64_t _get_current_time() const override;
+        void _sleep() const override;
 
     public:
         /**

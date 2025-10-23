@@ -97,7 +97,7 @@ namespace sabre::esp32
          * @return True if the Wi-Fi Station is connected to a network, false
          * otherwise.
          */
-        bool is_connected() const;
+        bool is_connected() const override;
 
         /**
          * @brief Check if the Wi-Fi Station has an IPv4 address.
@@ -105,7 +105,7 @@ namespace sabre::esp32
          * @return True if the Wi-Fi Station has an IPv4 address, false
          * otherwise.
          */
-        bool has_ipv4_address() const;
+        bool has_ipv4_address() const override;
 
         /**
          * @brief Event handler for Wi-Fi events.

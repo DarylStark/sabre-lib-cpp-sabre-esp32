@@ -109,7 +109,7 @@ namespace sabre::esp32
          * @param trigger The trigger condition for the interrupt.
          */
         void add_interrupt_handler(sabre::ISRHandler,
-                                   sabre::ISRTrigger trigger);
+                                   sabre::ISRTrigger trigger) override;
     };
 } // namespace sabre::esp32
 

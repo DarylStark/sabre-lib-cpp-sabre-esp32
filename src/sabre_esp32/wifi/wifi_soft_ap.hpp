@@ -49,7 +49,7 @@ namespace sabre::esp32
          * This method initializes the Wi-Fi Soft AP with the default
          * configuration. It should be called before starting the Soft AP.
          */
-        void init();
+        void init() override;
 
         /**
          * @brief Start the Wi-Fi Soft AP with the specified SSID and password.
@@ -60,7 +60,7 @@ namespace sabre::esp32
          * This method starts the Wi-Fi Soft AP with the given SSID and
          * password. It should be called after initializing the Soft AP.
          */
-        void start(std::string ssid, std::string password);
+        void start(std::string ssid, std::string password) override;
 
         /**
          * @brief Stop the Wi-Fi Soft AP.
@@ -68,7 +68,7 @@ namespace sabre::esp32
          * This method stops the Wi-Fi Soft AP and cleans up resources.
          * It should be called when the Soft AP is no longer needed.
          */
-        void stop();
+        void stop() override;
 
         /**
          * @brief Deinitialize the Wi-Fi Soft AP.
@@ -77,7 +77,7 @@ namespace sabre::esp32
          * It should be called to release resources when the Soft AP is no
          * longer needed.
          */
-        void deinitialize();
+        void deinitialize() override;
 
         // Handlers for the `main event loop`
         void wifi_event_handler(esp_event_base_t event_base, int32_t event_id,
