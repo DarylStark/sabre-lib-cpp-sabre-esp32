@@ -10,7 +10,7 @@ public:
     {
         mockoc.clear();
         mock_mcu.clear();
-        auto wifi = sabre::esp32::Wifi::get_instance();
+        auto &wifi = sabre::esp32::Wifi::get_instance();
         wifi->reset();
         wifi->set_default_start_timeout(10);
     }

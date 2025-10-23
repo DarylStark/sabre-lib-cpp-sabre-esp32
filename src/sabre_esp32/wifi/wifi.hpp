@@ -47,7 +47,7 @@ namespace sabre::esp32
         Wifi &operator=(const Wifi &) = delete;
         Wifi &operator=(Wifi &&) = delete;
 
-        static std::shared_ptr<Wifi> _instance;
+        static std::unique_ptr<Wifi> _instance;
 
         bool _is_initialized = false;
         bool _wifi_started = false;
@@ -69,12 +69,13 @@ namespace sabre::esp32
         /**
          * @brief Get the singleton instance of the Wifi class.
          *
-         * This method returns a shared pointer to the singleton instance of
-         * the Wifi class. If the instance does not exist, it will be created.
+         * This method returns a reference to the unique_ptr managing the
+         * singleton instance of the Wifi class. If the instance does not
+         * exist, it will be created.
          *
-         * @return A shared pointer to the Wifi instance.
+         * @return A reference to the unique_ptr holding the Wifi instance.
          */
-        static std::shared_ptr<Wifi> get_instance();
+        static std::unique_ptr<Wifi> &get_instance();
 
         /**
          * @brief Initialize the Wi-Fi manager.
