@@ -1,5 +1,4 @@
-#ifndef SABRE_ESP32_WIFI_H
-#define SABRE_ESP32_WIFI_H
+#pragma once
 
 #include <bitset>
 #include <esp_wifi.h>
@@ -193,5 +192,3 @@ namespace sabre::esp32
         void reset();
     };
 }; // namespace sabre::esp32
-
-#endif // SABRE_ESP32_WIFI_H

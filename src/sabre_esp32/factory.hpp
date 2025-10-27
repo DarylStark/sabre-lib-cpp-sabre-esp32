@@ -1,5 +1,4 @@
-#ifndef SABRE_ESP32_FACTORY_H
-#define SABRE_ESP32_FACTORY_H
+#pragma once
 
 #include "clients/mqtt.hpp"
 #include "clients/ntp.hpp"
@@ -129,5 +128,3 @@ namespace sabre::esp32
         create_service(ServiceHandler fn) const override;
     };
 } // namespace sabre::esp32
-
-#endif /* SABRE_ESP32_FACTORY_H */

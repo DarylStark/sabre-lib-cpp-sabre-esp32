@@ -1,5 +1,4 @@
-#ifndef SABRE_ESP32_SERVICE_H
-#define SABRE_ESP32_SERVICE_H
+#pragma once
 
 #include <freertos/FreeRTOS.h>
 #include <freertos/task.h>
@@ -57,5 +56,3 @@ namespace sabre::esp32
         void stop() override;
     };
 } // namespace sabre::esp32
-
-#endif // SABRE_ESP32_SERVICE_H

@@ -1,5 +1,4 @@
-#ifndef SABRE_ESP32_WAIT_FOR_H
-#define SABRE_ESP32_WAIT_FOR_H
+#pragma once
 
 #include <esp_timer.h>
 #include <freertos/FreeRTOS.h>
@@ -33,5 +32,3 @@ namespace sabre::esp32
                 uint64_t sleep_time = 0);
     };
 } // namespace sabre::esp32
-
-#endif // SABRE_ESP32_WAIT_FOR_H

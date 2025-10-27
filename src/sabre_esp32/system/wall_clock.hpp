@@ -1,5 +1,4 @@
-#ifndef SABRE_ESP32_WALL_CLOCK_HPP
-#define SABRE_ESP32_WALL_CLOCK_HPP
+#pragma once
 
 #include <sabre/system/wall_clock.hpp>
 
@@ -31,5 +30,3 @@ namespace sabre::esp32
         void set_now_ms(uint64_t time_in_ms) override;
     };
 } // namespace sabre::esp32
-
-#endif // SABRE_ESP32_WALL_CLOCK_HPP

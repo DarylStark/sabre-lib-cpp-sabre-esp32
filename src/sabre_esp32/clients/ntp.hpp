@@ -1,5 +1,4 @@
-#ifndef SABRE_ESP32_CLIENTS_NTP_HPP
-#define SABRE_ESP32_CLIENTS_NTP_HPP
+#pragma once
 
 #include <sabre/clients/ntp.hpp>
 #include <string>
@@ -49,5 +48,3 @@ namespace sabre::esp32
         bool is_synchronized() const override;
     };
 } // namespace sabre::esp32
-
-#endif // SABRE_ESP32_CLIENTS_NTP_HPP
