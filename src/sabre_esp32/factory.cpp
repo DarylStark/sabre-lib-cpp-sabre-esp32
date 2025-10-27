@@ -3,60 +3,60 @@
 
 namespace sabre::esp32
 {
-    sabre::UARTSharedPtr Factory::create_uart_object(uint32_t uart_number,
+    sabre::UARTUniquePtr Factory::create_uart_object(uint32_t uart_number,
                                                      int32_t baud_rate,
                                                      int32_t tx_pin,
                                                      int32_t rx_pin) const
     {
-        return std::make_shared<UART>(static_cast<uart_port_t>(uart_number),
+        return std::make_unique<UART>(static_cast<uart_port_t>(uart_number),
                                       baud_rate, tx_pin, rx_pin);
     }
 
-    sabre::InputGPIOSharedPtr Factory::create_input_gpio(int32_t pin) const
+    sabre::InputGPIOUniquePtr Factory::create_input_gpio(int32_t pin) const
     {
-        return std::make_shared<InputGPIO>(pin);
+        return std::make_unique<InputGPIO>(pin);
     }
 
-    sabre::OutputGPIOSharedPtr Factory::create_output_gpio(int32_t pin) const
+    sabre::OutputGPIOUniquePtr Factory::create_output_gpio(int32_t pin) const
     {
-        return std::make_shared<OutputGPIO>(pin);
+        return std::make_unique<OutputGPIO>(pin);
     }
 
-    sabre::WifiStationSharedPtr Factory::create_wifi_station() const
+    sabre::WifiStationUniquePtr Factory::create_wifi_station() const
     {
-        return std::make_shared<WifiStation>();
+        return std::make_unique<WifiStation>();
     }
 
-    sabre::WifiSoftAPSharedPtr Factory::create_wifi_soft_ap() const
+    sabre::WifiSoftAPUniquePtr Factory::create_wifi_soft_ap() const
     {
-        return std::make_shared<WifiSoftAP>();
+        return std::make_unique<WifiSoftAP>();
     }
 
-    sabre::MQTTClientSharedPtr Factory::create_mqtt_client() const
+    sabre::MQTTClientUniquePtr Factory::create_mqtt_client() const
     {
-        return std::make_shared<MQTTClient>();
+        return std::make_unique<MQTTClient>();
     }
 
-    sabre::WaitForSharedPtr Factory::create_wait_for(WaitForPred fn,
+    sabre::WaitForUniquePtr Factory::create_wait_for(WaitForPred fn,
                                                      uint64_t timeout_in_ms,
                                                      uint64_t sleep_time) const
     {
-        return std::make_shared<WaitFor>(fn, timeout_in_ms, sleep_time);
+        return std::make_unique<WaitFor>(fn, timeout_in_ms, sleep_time);
     }
 
-    sabre::NTPClientSharedPtr
+    sabre::NTPClientUniquePtr
     Factory::create_ntp_client(const std::string &server) const
     {
-        return std::make_shared<NTPClient>(server);
+        return std::make_unique<NTPClient>(server);
     }
 
-    sabre::WallClockSharedPtr Factory::create_wall_clock() const
+    sabre::WallClockUniquePtr Factory::create_wall_clock() const
     {
-        return std::make_shared<WallClock>();
+        return std::make_unique<WallClock>();
     }
 
-    sabre::ServiceSharedPtr Factory::create_service(ServiceHandler fn) const
+    sabre::ServiceUniquePtr Factory::create_service(ServiceHandler fn) const
     {
-        return std::make_shared<Service>(fn);
+        return std::make_unique<Service>(fn);
     }
 } // namespace sabre::esp32
