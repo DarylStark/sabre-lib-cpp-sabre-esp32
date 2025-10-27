@@ -1,5 +1,4 @@
-#ifndef SABRE_ESP32_WIFI_SOFT_AP_H
-#define SABRE_ESP32_WIFI_SOFT_AP_H
+#pragma once
 
 #include "wifi.hpp"
 #include <esp_wifi.h>
@@ -84,5 +83,3 @@ namespace sabre::esp32
                                 void *event_data);
     };
 } // namespace sabre::esp32
-
-#endif // SABRE_ESP32_WIFI_SOFT_AP_H

@@ -1,5 +1,4 @@
-#ifndef SABRE_ESP32_CLIENTS_MQTT_H
-#define SABRE_ESP32_CLIENTS_MQTT_H
+#pragma once
 
 #include <mqtt_client.h>
 #include <sabre/clients/mqtt.hpp>
@@ -95,5 +94,3 @@ namespace sabre::esp32
                           void *event_data);
     };
 } // namespace sabre::esp32
-
-#endif // SABRE_ESP32_CLIENTS_MQTT_H

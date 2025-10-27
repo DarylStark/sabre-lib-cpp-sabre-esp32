@@ -1,5 +1,4 @@
-#ifndef SABRE_ESP32_UART_H
-#define SABRE_ESP32_UART_H
+#pragma once
 
 #include <cstddef> // For size_t
 #include <cstdint> // For uint32_t
@@ -81,5 +80,3 @@ namespace sabre::esp32
         void deinitialize() override;
     };
 } // namespace sabre::esp32
-
-#endif // SABRE_ESP32_UART_H

@@ -1,5 +1,4 @@
-#ifndef SABRE_ESP32_INPUT_GPIO_H
-#define SABRE_ESP32_INPUT_GPIO_H
+#pragma once
 
 #include <cstdint>
 #include <driver/gpio.h>
@@ -112,5 +111,3 @@ namespace sabre::esp32
                                    sabre::ISRTrigger trigger) override;
     };
 } // namespace sabre::esp32
-
-#endif // SABRE_ESP32_INPUT_GPIO_H

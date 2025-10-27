@@ -1,5 +1,4 @@
-#ifndef SABRE_ESP32_EXCEPTIONS_H
-#define SABRE_ESP32_EXCEPTIONS_H
+#pragma once
 
 #include <esp_err.h>
 #include <sabre/exceptions/exceptions.hpp>
@@ -44,5 +43,3 @@ namespace sabre::esp32
      */
     void throw_if_negative_value(int32_t value, const std::string &msg);
 } // namespace sabre::esp32
-
-#endif // SABRE_ESP32_EXCEPTIONS_H
