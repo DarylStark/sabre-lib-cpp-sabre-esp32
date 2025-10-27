@@ -38,9 +38,9 @@ namespace sabre::esp32
          * @param tx_pin Transmit pin.
          * @param rx_pin Receive pin.
          *
-         * @returns A UARTSharedPtr shared pointer to a UART object.
+         * @returns A UARTUniquePtr shared pointer to a UART object.
          */
-        sabre::UARTSharedPtr create_uart_object(uint32_t uart_number,
+        sabre::UARTUniquePtr create_uart_object(uint32_t uart_number,
                                                 int32_t baud_rate,
                                                 int32_t tx_pin,
                                                 int32_t rx_pin) const override;
@@ -50,40 +50,41 @@ namespace sabre::esp32
          *
          * @param pin the pin number for the GPIO.
          *
-         * @returns A InputGPIOSharedPtr shared pointer to a InputGPIO object.
+         * @returns A InputGPIOUniquePtr shared pointer to a InputGPIO object.
          */
-        sabre::InputGPIOSharedPtr create_input_gpio(int32_t pin) const override;
+        sabre::InputGPIOUniquePtr create_input_gpio(int32_t pin) const override;
 
         /**
          * @brief Create a OutputGPIO object.
          *
          * @param pin the pin number for the GPIO.
          *
-         * @returns A OutputGPIOSharedPtr shared pointer to a OutputGPIO object.
+         * @returns A OutputGPIOUniquePtr shared pointer to a OutputGPIO object.
          */
-        sabre::OutputGPIOSharedPtr create_output_gpio(int32_t pin) const override;
+        sabre::OutputGPIOUniquePtr
+        create_output_gpio(int32_t pin) const override;
 
         /**
          * @brief Create a Wi-Fi Station object.
          *
-         * @returns A WifiStationSharedPtr shared pointer to a WifiStation
+         * @returns A WifiStationUniquePtr shared pointer to a WifiStation
          * object.
          */
-        sabre::WifiStationSharedPtr create_wifi_station() const override;
+        sabre::WifiStationUniquePtr create_wifi_station() const override;
 
         /**
          * @brief Create a Wi-Fi Soft AP object.
          *
-         * @returns A WifiSoftAPSharedPtr shared pointer to a WifiSoftAP object.
+         * @returns A WifiSoftAPUniquePtr shared pointer to a WifiSoftAP object.
          */
-        sabre::WifiSoftAPSharedPtr create_wifi_soft_ap() const override;
+        sabre::WifiSoftAPUniquePtr create_wifi_soft_ap() const override;
 
         /**
          * @brief Create a MQTT Client object.
          *
-         * @returns A MQTTClientSharedPtr shared pointer to a MQTTClient object.
+         * @returns A MQTTClientUniquePtr shared pointer to a MQTTClient object.
          */
-        sabre::MQTTClientSharedPtr create_mqtt_client() const override;
+        sabre::MQTTClientUniquePtr create_mqtt_client() const override;
 
         /**
          * @brief Create a WaitFor object.
@@ -92,39 +93,40 @@ namespace sabre::esp32
          * @param timeout_in_ms The maximum time to wait in milliseconds.
          * @param sleep_time The time to sleep between checks in milliseconds.
          *
-         * @returns A WaitForSharedPtr shared pointer to a WaitFor object.
+         * @returns A WaitForUniquePtr shared pointer to a WaitFor object.
          */
-        sabre::WaitForSharedPtr create_wait_for(WaitForPred fn,
-                                                uint64_t timeout_in_ms,
-                                                uint64_t sleep_time) const override;
+        sabre::WaitForUniquePtr
+        create_wait_for(WaitForPred fn, uint64_t timeout_in_ms,
+                        uint64_t sleep_time) const override;
 
         /**
          * @brief Create a `NTPClient` object.
          *
          * @param server the NTP server to use.
          *
-         * @returns A `NTPClientSharedPtr` shared pointer to a `NTPClient`.
+         * @returns A `NTPClientUniquePtr` shared pointer to a `NTPClient`.
          */
-        sabre::NTPClientSharedPtr
+        sabre::NTPClientUniquePtr
         create_ntp_client(const std::string &server) const override;
 
         /**
          * @brief Create a `WallClock` object.
          *
-         * @return A `WallClockSharedPtr` shared pointer to a `WallClock`
+         * @return A `WallClockUniquePtr` shared pointer to a `WallClock`
          * object.
          */
-        sabre::WallClockSharedPtr create_wall_clock() const override;
+        sabre::WallClockUniquePtr create_wall_clock() const override;
 
         /**
          * @brief Create a `Service` object.
          *
          * @param fn the function to run as the service.
          *
-         * @return A `ServiceSharedPtr` shared pointer to a `Service`
+         * @return A `ServiceUniquePtr` shared pointer to a `Service`
          * object.
          */
-        sabre::ServiceSharedPtr create_service(ServiceHandler fn) const override;
+        sabre::ServiceUniquePtr
+        create_service(ServiceHandler fn) const override;
     };
 } // namespace sabre::esp32
 
