@@ -15,4 +15,10 @@ namespace sabre::esp32
         if (value < 0)
             throw ESP_IDF_Error(msg);
     }
+
+    UnsupportedFeatureException::UnsupportedFeatureException(
+        const std::string &s)
+        : APIError(s)
+    {
+    }
 } // namespace sabre::esp32

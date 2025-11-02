@@ -42,4 +42,23 @@ namespace sabre::esp32
      * @throws ESP_IDF_Error if value is less than 0.
      */
     void throw_if_negative_value(int32_t value, const std::string &msg);
+
+    /**
+     * @brief Exception class for unsupported features on specific ESP32
+     * targets.
+     *
+     * This class inherits from `sabre::APIError` and is used to throw
+     * exceptions when a feature is not supported on the target ESP32 chip
+     * (e.g., Wi-Fi on ESP32-H2).
+     */
+    class UnsupportedFeatureException : public sabre::APIError
+    {
+    public:
+        /**
+         * @brief Constructor for `UnsupportedFeatureException`.
+         *
+         * @param s The error message describing the unsupported feature.
+         */
+        UnsupportedFeatureException(const std::string &s);
+    };
 } // namespace sabre::esp32

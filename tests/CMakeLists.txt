@@ -14,6 +14,8 @@ target_link_libraries(sabre_esp32_tests PRIVATE gtest sabre_esp32 mock_esp_idf m
 target_compile_options(sabre_esp32_tests PRIVATE --coverage)
 target_link_options(sabre_esp32_tests PRIVATE --coverage)
 
+target_compile_definitions(sabre_esp32_tests PRIVATE CONFIG_ESP_WIFI_ENABLED)
+
 target_include_directories(
     sabre_esp32_tests
     PRIVATE

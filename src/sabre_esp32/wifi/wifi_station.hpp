@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef CONFIG_ESP_WIFI_ENABLED
+
 #include "wifi.hpp"
 #include <esp_wifi.h>
 #include <sabre/generic/ipv4_address.hpp>
@@ -119,3 +121,5 @@ namespace sabre::esp32
                               void *event_data);
     };
 } // namespace sabre::esp32
+
+#endif

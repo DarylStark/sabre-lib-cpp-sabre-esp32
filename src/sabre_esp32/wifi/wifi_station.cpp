@@ -1,3 +1,5 @@
+#ifdef CONFIG_ESP_WIFI_ENABLED
+
 #include "wifi_station.hpp"
 #include <arpa/inet.h>
 #include <cstring>
@@ -150,3 +152,5 @@ namespace sabre::esp32
         return _ipv4_address != IPv4Address(0);
     }
 } // namespace sabre::esp32
+
+#endif

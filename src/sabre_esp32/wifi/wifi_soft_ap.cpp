@@ -1,3 +1,5 @@
+#ifdef CONFIG_ESP_WIFI_ENABLED
+
 #include "wifi_soft_ap.hpp"
 #include <cstring>
 #include <nvs_flash.h>
@@ -73,3 +75,5 @@ namespace sabre::esp32
                                      &_wifi_event_handler_two);
     }
 } // namespace sabre::esp32
+
+#endif
