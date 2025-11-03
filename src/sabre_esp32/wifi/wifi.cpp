@@ -1,3 +1,5 @@
+#ifdef CONFIG_ESP_WIFI_ENABLED
+
 #include "wifi.hpp"
 #include "../utility/wait_for.hpp"
 #include <esp_event.h>
@@ -169,3 +171,5 @@ namespace sabre::esp32
         _default_start_timeout = DEFAULT_WIFI_TIMEOUT;
     }
 } // namespace sabre::esp32
+
+#endif

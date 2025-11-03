@@ -8,8 +8,12 @@
 #include "system/wall_clock.hpp"
 #include "uart/uart.hpp"
 #include "utility/wait_for.hpp"
+
+#ifdef CONFIG_ESP_WIFI_ENABLED
 #include "wifi/wifi_soft_ap.hpp"
 #include "wifi/wifi_station.hpp"
+#endif
+
 #include <map>
 #include <memory>
 #include <sabre/factory.hpp>

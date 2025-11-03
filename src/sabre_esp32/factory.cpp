@@ -24,12 +24,22 @@ namespace sabre::esp32
 
     sabre::WifiStationUniquePtr Factory::create_wifi_station() const
     {
+#ifdef CONFIG_ESP_WIFI_ENABLED
         return std::make_unique<WifiStation>();
+#else
+        throw sabre::esp32::UnsupportedFeatureException(
+            "Wi-Fi Station is not supported on this target.");
+#endif
     }
 
     sabre::WifiSoftAPUniquePtr Factory::create_wifi_soft_ap() const
     {
+#ifdef CONFIG_ESP_WIFI_ENABLED
         return std::make_unique<WifiSoftAP>();
+#else
+        throw sabre::esp32::UnsupportedFeatureException(
+            "Wi-Fi Soft AP is not supported on this target.");
+#endif
     }
 
     sabre::MQTTClientUniquePtr Factory::create_mqtt_client() const

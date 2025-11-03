@@ -14,6 +14,7 @@ target_link_libraries(sabre_esp32 PUBLIC sabre)
 if(SABRE_ESP32_BUILD_TESTS STREQUAL "ON")
     target_compile_options(sabre_esp32 PRIVATE --coverage)
     target_link_options(sabre_esp32 PRIVATE --coverage)
+    target_compile_definitions(sabre_esp32 PUBLIC CONFIG_ESP_WIFI_ENABLED)
 endif()
 
 target_include_directories(

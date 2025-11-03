@@ -1,5 +1,7 @@
 #pragma once
 
+#ifdef CONFIG_ESP_WIFI_ENABLED
+
 #include <bitset>
 #include <esp_wifi.h>
 #include <memory>
@@ -192,3 +194,5 @@ namespace sabre::esp32
         void reset();
     };
 }; // namespace sabre::esp32
+
+#endif
